@@ -1,0 +1,26 @@
+/* src/index.css */
+
+:root {
+  --fondo-dashboard: url("./assets/nhcampo1.jpg");
+  --fondo-login: url("./assets/nhcampo.jpg");
+}
+
+.dashboard-container {
+  background-image: var(--fondo-dashboard);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 2rem;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.login-container {
+  background-image: var(--fondo-login);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
