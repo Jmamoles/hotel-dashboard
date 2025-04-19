@@ -56,6 +56,10 @@ const DashboardMantenimiento = () => {
     navigate("/login");
   };
 
+  const handleBackToDashboard = () => {
+    navigate("/dashboard");  // Cambia la ruta según sea necesario
+  };
+
   const labelsSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
   const lineData = {
@@ -194,8 +198,16 @@ const DashboardMantenimiento = () => {
           ))}
         </div>
 
-        {/* Botón cerrar sesión */}
+        {/* Botón Volver al Dashboard */}
         <div className="text-center mt-6">
+          <button
+            onClick={handleBackToDashboard}
+            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mr-4"
+          >
+            Volver al Dashboard
+          </button>
+
+          {/* Botón cerrar sesión */}
           <button
             onClick={handleLogout}
             className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition"
