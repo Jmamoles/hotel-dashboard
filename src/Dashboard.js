@@ -66,6 +66,10 @@ const Dashboard = () => {
     navigate("/grafica");
   };
 
+  const handleIrAMantenimiento = () => {
+    navigate("/dashboard-mantenimiento");
+  };
+
   return (
     <div
       style={{
@@ -85,19 +89,19 @@ const Dashboard = () => {
           color: "#000",
           padding: "2rem",
           borderRadius: "1rem",
-          maxWidth: "350px",
+          maxWidth: "400px",
           width: "100%",
           boxShadow: "0 0 30px rgba(0,0,0,0.2)",
         }}
       >
         <div className="text-right mb-4">
-  <button
-    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-    onClick={() => navigate("/")}
-  >
-    Cerrar Sesion
-  </button>
-</div>
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+            onClick={() => navigate("/")}
+          >
+            Cerrar Sesión
+          </button>
+        </div>
 
         <h1 className="text-3xl font-bold text-center mb-6">
           {habitacionId
@@ -105,12 +109,18 @@ const Dashboard = () => {
             : "Dashboard de Consumo de Agua"}
         </h1>
 
-        <div className="mb-4 text-center">
+        <div className="mb-4 text-center flex flex-col gap-2">
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded"
             onClick={handleVerGrafica}
           >
             Ver gráfica
+          </button>
+          <button
+            className="bg-green-600 text-white px-4 py-2 rounded"
+            onClick={handleIrAMantenimiento}
+          >
+            Ir a Mantenimiento
           </button>
         </div>
 
