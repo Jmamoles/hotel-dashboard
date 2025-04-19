@@ -7,8 +7,9 @@ const Dashboard1 = () => {
   const navigate = useNavigate();
   const [datosHabitacion, setDatosHabitacion] = useState(null);
 
+  // Función para generar datos simulados de la habitación
   const generarDatosHabitacion = (habitacionId) => {
-    const consumo = Math.floor(Math.random() * 200) + 50;
+    const consumo = Math.floor(Math.random() * 200) + 50; // consumo entre 50 y 250
     const ocupada = Math.random() < 0.7;
     const averia = !ocupada && Math.random() < 0.2;
     const porDebajoDelLimite = consumo < 150;
@@ -31,21 +32,40 @@ const Dashboard1 = () => {
     };
   };
 
+  // Obtener los datos simulados
   const obtenerDatos = () => {
     const data = generarDatosHabitacion(habitacionId);
     setDatosHabitacion(data);
   };
 
+  // Hook para cargar los datos cuando se carga el componente
   useEffect(() => {
     obtenerDatos();
   }, [habitacionId]);
 
+  // Función para cerrar sesión
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/login");
   };
 
   if (!datosHabitacion) return null;
+
+  // Función para mostrar el mensaje de Water Ambassador
+  const obtenerEstadoConsumo = () => {
+    if (datosHabitacion.consumo < 150) {
+      return (
+        <div>
+          <p>🟢 Consumo eficiente</p>
+          <p>Enhorabuena, ¡es usted Water Ambassador de NH!</p>
+        </div>
+      );
+    } else if (datosHabitacion.consumo >= 150 && datosHabitacion.consumo <= 200) {
+      return <p>🟡 Consumo moderado</p>;
+    } else {
+      return <p>🔴 Consumo alto</p>;
+    }
+  };
 
   return (
     <div
@@ -94,6 +114,9 @@ const Dashboard1 = () => {
             <strong>📊 Promedio diario estimado:</strong>{" "}
             {datosHabitacion.promedioEstimado} L
           </p>
+
+          {/* Mostrar el estado del consumo */}
+          {obtenerEstadoConsumo()}
         </div>
 
         <div className="text-center mt-6 flex flex-col gap-3">
