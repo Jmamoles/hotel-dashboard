@@ -49,15 +49,13 @@ const Dashboard1 = () => {
     navigate("/login");
   };
 
-  if (!datosHabitacion) return null;
-
-  // Función para mostrar el mensaje de Water Ambassador
+  // Mostrar el mensaje de Water Ambassador si el consumo es menor a 150
   const obtenerEstadoConsumo = () => {
     if (datosHabitacion.consumo < 150) {
       return (
         <div>
           <p>🟢 Consumo eficiente</p>
-          <p>Enhorabuena, ¡es usted Water Ambassador de NH!</p>
+          <p><strong>Enhorabuena, ¡es usted Water Ambassador de NH!</strong></p>
         </div>
       );
     } else if (datosHabitacion.consumo >= 150 && datosHabitacion.consumo <= 200) {
@@ -66,6 +64,8 @@ const Dashboard1 = () => {
       return <p>🔴 Consumo alto</p>;
     }
   };
+
+  if (!datosHabitacion) return null;
 
   return (
     <div
