@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import nhcampo1 from "./assets/nhcampo1.jpg";
-import mascota from "./assets/mascota.png";
+import mascota from "./assets/mascota.png"; // 
 
 
 const Dashboard1 = () => {
@@ -53,15 +53,14 @@ const Dashboard1 = () => {
 
   // Mostrar el mensaje de Water Ambassador si el consumo es menor a 150
   const obtenerEstadoConsumo = () => {
-    if (datosHabitacion.consumo <= 150) {
+    if (datosHabitacion.consumo < 150) {
       return (
-        <div className="text-center">
-          <img src={mascota} alt="Mascota" style={{ width: "120px", marginBottom: "1rem" }} />
+        <div>
           <p>🟢 Consumo eficiente</p>
           <p><strong>Enhorabuena, ¡es usted Water Ambassador de NH!</strong></p>
         </div>
       );
-    } else if (datosHabitacion.consumo > 150 && datosHabitacion.consumo <= 200) {
+    } else if (datosHabitacion.consumo >= 150 && datosHabitacion.consumo <= 200) {
       return <p>🟡 Consumo moderado</p>;
     } else {
       return <p>🔴 Consumo alto</p>;
