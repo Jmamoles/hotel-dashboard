@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import nhcampo1 from "./assets/nhcampo1.jpg";
+import mascota from "./assets/mascota.png";
+
 
 const Dashboard1 = () => {
   const { habitacionId } = useParams();
@@ -53,7 +55,8 @@ const Dashboard1 = () => {
   const obtenerEstadoConsumo = () => {
     if (datosHabitacion.consumo < 150) {
       return (
-        <div>
+        <div className="text-center">
+        <img src={mascota} alt="Mascota" style={{ width: "100px", marginBottom: "1rem" }} />
           <p>🟢 Consumo eficiente</p>
           <p><strong>Enhorabuena, ¡es usted Water Ambassador de NH!</strong></p>
         </div>
