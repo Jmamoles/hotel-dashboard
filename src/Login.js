@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [rol, setRol] = useState(""); // Variable para manejar el rol (solo empleados)
   const navigate = useNavigate();
 
   // Lista de clientes (esto se importaría de SAP)
@@ -24,13 +25,14 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); // Reset error message
 
     // Verifica si es cliente
     const esCliente = clientes.find(
       (cli) => cli.email === email && cli.habitacion === password
     );
     if (esCliente) {
+      // Si es cliente, lo redirige al Dashboard1 con el número de habitación
       navigate(`/dashboard1/${esCliente.habitacion}`);
       return;
     }
@@ -40,7 +42,25 @@ const Login = () => {
       (emp) => emp.email === email && emp.empleadoId === password
     );
     if (esEmpleado) {
-      navigate("/dashboard");
+      // Si es empleado, mostramos la selección de rol (Recepción o Mantenimiento)
+      if (!rol) {
+        setError("Por favor, seleccione un rol.");
+        return;
+      }
+
+      // Guardamos el rol en localStorage y redirigimos al dashboard correspondiente
+      localStorage.setItem("user", email);
+      localStorage.setItem("rol", rol);
+
+      // Redirigir según el rol seleccionado
+      if (rol === "recepcion") {
+        // Si es Recepción, redirigimos al DashboardCorporativo
+        navigate("/dashboard");
+      } else if (rol === "mantenimiento") {
+        // Si es Mantenimiento, redirigimos al DashboardCorporativo directamente
+        navigate("/datos"); // Directo al dashboard corporativo
+      }
+
       return;
     }
 
@@ -98,6 +118,22 @@ const Login = () => {
               className="w-full p-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Mostrar la selección de rol solo si el email pertenece a un empleado */}
+          {email.endsWith("@nh-hotels.com") && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold mb-1">Seleccionar Rol</label>
+              <select
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+                className="w-full px-4 py-2 border rounded-md"
+              >
+                <option value="">Seleccione un rol</option>
+                <option value="recepcion">Recepción</option>
+                <option value="mantenimiento">Mantenimiento</option>
+              </select>
+            </div>
+          )}
 
           <button
             type="submit"

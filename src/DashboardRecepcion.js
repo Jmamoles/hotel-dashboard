@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import nhcampo1 from "./assets/nhcampo1.jpg";
-import mascota from "./assets/Mascota.png";
-
 
 const Dashboard1 = () => {
   const { habitacionId } = useParams();
@@ -18,21 +16,12 @@ const Dashboard1 = () => {
     const averia = !ocupada && Math.random() < 0.2;
     const porDebajoDelLimite = consumo < 150;
 
-    let planta = "Desconocida";
-    const num = parseInt(habitacionId);
-    if (num >= 101 && num <= 125) planta = "Planta 1";
-    else if (num >= 201 && num <= 225) planta = "Planta 2";
-    else if (num >= 301 && num <= 325) planta = "Planta 3";
-    else if (num >= 401 && num <= 425) planta = "Planta 4";
-
     return {
       habitacion: habitacionId,
-      planta,
       consumo,
       ocupada,
       averia,
       porDebajoDelLimite,
-      promedioEstimado: Math.floor(consumo * 0.95),
     };
   };
 
@@ -58,7 +47,7 @@ const Dashboard1 = () => {
       return (
         <div>
           <p>🟢 Consumo eficiente</p>
-          <p>Enhorabuena, ¡es usted Water Ambassador de NH!</p>
+          <p>Cliente elegible como Water Ambassador de NH!</p>
         </div>
       );
     } else if (datosHabitacion.consumo >= 150 && datosHabitacion.consumo <= 200) {
@@ -97,39 +86,14 @@ const Dashboard1 = () => {
         </h1>
 
         <div className="text-md space-y-2">
-          <p><strong>📍 Planta:</strong> {datosHabitacion.planta}</p>
           <p><strong>💧 Consumo actual:</strong> {datosHabitacion.consumo} L</p>
-          <p>
-            <strong>🛏 Estado:</strong>{" "}
-            {datosHabitacion.ocupada
-              ? "🟢 Ocupada"
-              : datosHabitacion.averia
-              ? "🔧 Libre (Avería)"
-              : "🔴 Libre"}
-          </p>
           <p>
             <strong>⚡ Por debajo del límite:</strong>{" "}
             {datosHabitacion.porDebajoDelLimite ? "✅ Sí" : "⚠️ No"}
           </p>
-          <p>
-            <strong>📊 Promedio diario estimado:</strong>{" "}
-            {datosHabitacion.promedioEstimado} L
-          </p>
 
           {obtenerEstadoConsumo()}
         </div>
-
-        <div className="text-center mt-6">
-  <img
-    src={mascota}
-    alt="Mascota NH"
-    style={{
-      width: "200px",
-      margin: "0 auto",
-    }}
-  />
-  <p className="text-sm text-gray-600 mt-2">Tu compañero de sostenibilidad 🌱</p>
-</div>
 
         <div className="text-center mt-6 flex flex-col gap-3">
           {tipoUsuario === "corporativo" && (
@@ -140,6 +104,14 @@ const Dashboard1 = () => {
               Volver atrás
             </button>
           )}
+
+          {/* Botón para volver a Dashboard Corporativo */}
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+          >
+            Volver
+          </button>
 
           <button
             onClick={handleLogout}

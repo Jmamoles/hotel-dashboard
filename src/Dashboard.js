@@ -114,6 +114,24 @@ const Dashboard = () => {
           </button>
         </div>
 
+        <div className="mb-4 text-center">
+  <button
+    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+    onClick={() => navigate("/dashboardmantenimiento")}
+  >
+    Mantenimiento
+  </button>
+</div>
+
+<div className="mb-6 text-center">
+  <button
+    className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+    onClick={() => navigate("/dashboard")}
+  >
+    Volver al Inicio
+  </button>
+</div>
+
         <div className="flex flex-wrap gap-2 mb-4 justify-center">
           {["planta1", "planta2", "planta3", "planta4"].map((planta) => (
             <button
