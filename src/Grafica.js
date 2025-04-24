@@ -68,9 +68,9 @@ const GraficaDeConsumo = () => {
         <div className="flex justify-center mt-6">
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/datos")}
           >
-            Volver al Dashboard
+            Atras
           </button>
         </div>
       </div>

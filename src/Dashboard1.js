@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import nhcampo1 from "./assets/nhcampo1.jpg";
 import mascota from "./assets/Mascota.png";
 
-
 const Dashboard1 = () => {
   const { habitacionId } = useParams();
   const navigate = useNavigate();
@@ -11,9 +10,8 @@ const Dashboard1 = () => {
 
   const tipoUsuario = localStorage.getItem("tipoUsuario");
 
-  // Función para generar datos simulados de la habitación
   const generarDatosHabitacion = (habitacionId) => {
-    const consumo = Math.floor(Math.random() * 200) + 50; // consumo entre 50 y 250
+    const consumo = Math.floor(Math.random() * 200) + 50;
     const ocupada = Math.random() < 0.7;
     const averia = !ocupada && Math.random() < 0.2;
     const porDebajoDelLimite = consumo < 150;
@@ -119,17 +117,21 @@ const Dashboard1 = () => {
           {obtenerEstadoConsumo()}
         </div>
 
-        <div className="text-center mt-6">
-  <img
-    src={mascota}
-    alt="Mascota NH"
-    style={{
-      width: "200px",
-      margin: "0 auto",
-    }}
-  />
-  <p className="text-sm text-gray-600 mt-2">Tu compañero de sostenibilidad 🌱</p>
-</div>
+        {datosHabitacion.consumo < 150 && (
+          <div className="text-center mt-6">
+            <img
+              src={mascota}
+              alt="Mascota NH"
+              style={{
+                width: "200px",
+                margin: "0 auto",
+              }}
+            />
+            <p className="text-sm text-gray-600 mt-2">
+              Tu compañero de sostenibilidad 🌱
+            </p>
+          </div>
+        )}
 
         <div className="text-center mt-6 flex flex-col gap-3">
           {tipoUsuario === "corporativo" && (

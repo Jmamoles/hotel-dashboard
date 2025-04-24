@@ -147,7 +147,7 @@ const Login = () => {
           src={logoNH}
           alt="Logo NH Hotels"
           className="mx-auto mt-6"
-          style={{ width: "400px", objectFit: "contain" }}
+          style={{ width: "350px", objectFit: "contain" }}
         />
       </div>
     </div>

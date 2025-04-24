@@ -90,47 +90,32 @@ const Dashboard = () => {
           boxShadow: "0 0 30px rgba(0,0,0,0.2)",
         }}
       >
-        <div className="text-right mb-4">
-  <button
-    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-    onClick={() => navigate("/")}
-  >
-    Cerrar Sesion
-  </button>
-</div>
-
         <h1 className="text-3xl font-bold text-center mb-6">
           {habitacionId
             ? `Habitación ${habitacionId}`
-            : "Dashboard de Consumo de Agua"}
+            : "Consumo de Agua"}
         </h1>
 
-        <div className="mb-4 text-center">
+        <div className="mb-4 flex justify-center gap-4">
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             onClick={handleVerGrafica}
           >
-            Ver gráfica
+            Gráfica
+          </button>
+          <button
+            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+            onClick={() => navigate("/dashboardmantenimiento")}
+          >
+            Mantenimiento
+          </button>
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+            onClick={() => navigate("/")}
+          >
+            Cerrar Sesion
           </button>
         </div>
-
-        <div className="mb-4 text-center">
-  <button
-    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
-    onClick={() => navigate("/dashboardmantenimiento")}
-  >
-    Mantenimiento
-  </button>
-</div>
-
-<div className="mb-6 text-center">
-  <button
-    className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
-    onClick={() => navigate("/dashboard")}
-  >
-    Volver al Inicio
-  </button>
-</div>
 
         <div className="flex flex-wrap gap-2 mb-4 justify-center">
           {["planta1", "planta2", "planta3", "planta4"].map((planta) => (
@@ -189,14 +174,10 @@ const Dashboard = () => {
                   <td className="px-4 py-2">{h.habitacion}</td>
                   <td className="px-4 py-2">{h.consumo} L</td>
                   <td className="px-4 py-2">
-                    {h.ocupada
-                      ? "🟢 Ocupada"
-                      : h.consumo > 0
-                      ? "🔧 Libre (Avería)"
-                      : "🔴 Libre"}
+                    {h.averia ? "🔴 Libre (Avería)" : h.ocupada ? "🟢 Ocupada" : "🔴 Libre"}
                   </td>
                   <td className="px-4 py-2">
-                    {h.porDebajoDelLimite ? "✅ Sí" : "⚠️ No"}
+                    {h.averia ? "🔧 Avería" : h.porDebajoDelLimite ? "✅ Sí" : "⚠️ No"}
                   </td>
                 </tr>
               ))}
