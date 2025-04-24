@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [plantaSeleccionada, setPlantaSeleccionada] = useState("planta1");
   const [filtroOcupacion, setFiltroOcupacion] = useState("todos");
 
+  // Función para generar un consumo aleatorio con hora simulada
   const generarConsumoAleatorio = () => {
     const datos = [];
     const rangosPlantas = {
@@ -24,21 +25,35 @@ const Dashboard = () => {
       for (let i = inicio; i <= fin; i++) {
         const ocupada = Math.random() < 0.7;
         let consumo = 0;
+        let estado = ""; // Variable para el estado de la habitación
 
         if (ocupada) {
           consumo = Math.floor(Math.random() * 200) + 50;
         } else {
-          const averia = Math.random() < 0.2;
-          consumo = averia ? Math.floor(Math.random() * 100) + 10 : 0;
+          // Generamos una hora aleatoria entre 0 y 24
+          const hora = Math.floor(Math.random() * 24);
+
+          // Si la hora está entre 12 y 15, la habitación está en limpieza
+          if (hora >= 12 && hora < 15) {
+            estado = "limpieza";
+            consumo = Math.floor(Math.random() * 11); // Establecer consumo entre 0 y 10 litros para limpieza
+          } else {
+            const averia = Math.random() < 0.2;
+            consumo = averia ? Math.floor(Math.random() * 100) + 10 : 0;
+          }
         }
+
+        // Verificar si hay avería (sin ocupación)
+        const averia = consumo > 0 && !ocupada;
 
         datos.push({
           habitacion: i,
           planta,
           consumo,
           ocupada,
+          estado, // Agregar el estado de limpieza
           porDebajoDelLimite: consumo < limiteAgua,
-          averia: consumo > 0 && !ocupada,
+          averia,
         });
       }
     });
@@ -174,10 +189,22 @@ const Dashboard = () => {
                   <td className="px-4 py-2">{h.habitacion}</td>
                   <td className="px-4 py-2">{h.consumo} L</td>
                   <td className="px-4 py-2">
-                    {h.averia ? "🔴 Libre (Avería)" : h.ocupada ? "🟢 Ocupada" : "🔴 Libre"}
+                    {h.estado === "limpieza"
+                      ? "🧹 En limpieza"
+                      : h.averia
+                      ? "🔴 Libre (Avería)"
+                      : h.ocupada
+                      ? "🟢 Ocupada"
+                      : "🔴 Libre"}
                   </td>
                   <td className="px-4 py-2">
-                    {h.averia ? "🔧 Avería" : h.porDebajoDelLimite ? "✅ Sí" : "⚠️ No"}
+                    {h.estado === "limpieza" && h.consumo < 10
+                      ? "🧹 Limpieza"
+                      : h.averia
+                      ? "🔧 Avería"
+                      : h.porDebajoDelLimite
+                      ? "✅ Sí"
+                      : "⚠️ No"}
                   </td>
                 </tr>
               ))}
